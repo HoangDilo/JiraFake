@@ -22,35 +22,55 @@ export default {
       },
       draggingStatus: "",
       containerRefs: [],
+      selectedCard: {
+        listKey: "",
+        index: 0,
+      },
     };
   },
   methods: {
     handleAddCard(key, payload) {
-      this.lists[key] = [...this.lists[key], payload];
+      if (payload) {
+        this.lists[key] = [...this.lists[key], payload];
+      }
     },
-    handleHold(payload) {
+    handleHold(listKey, index) {
       event.preventDefault();
-      this.draggingStatus = "dragging";
-      const cardCloneDOM = this.$refs["card-clone"];
-      this.cloneItem = {
-        value: event.target.innerText,
-        listKey: payload.listKey,
-        index: payload.index,
-      };
-      cardCloneDOM.style.transform = `translate(${-event.offsetX}px, ${-event.offsetY}px)`;
-      cardCloneDOM.style.left = `${event.clientX}px`;
-      cardCloneDOM.style.top = `${event.clientY}px`;
-      this.removeItem(payload.listKey, payload.index);
+      if (this.draggingStatus !== "stop") {
+        this.draggingStatus = "holding";
+        const cardCloneDOM = this.$refs["card-clone"];
+        this.cloneItem = {
+          value: event.target.innerText,
+          listKey: listKey,
+          index: index,
+        };
+        cardCloneDOM.style.transform = `translate(${-event.offsetX}px, ${-event.offsetY}px)`;
+        cardCloneDOM.style.left = `${event.clientX}px`;
+        cardCloneDOM.style.top = `${event.clientY}px`;
+        this.selectedCard = {
+          listKey: listKey,
+          index: index,
+        };
+      }
     },
     handleMove() {
-      if (this.draggingStatus === "dragging") {
+      if (
+        this.draggingStatus === "holding" ||
+        this.draggingStatus === "dragging"
+      ) {
+        if (this.draggingStatus === "holding") {
+          this.removeItem(this.selectedCard.listKey, this.selectedCard.index);
+        }
+        this.draggingStatus = "dragging";
         const cardCloneDOM = this.$refs["card-clone"];
         cardCloneDOM.style.left = `${event.clientX}px`;
         cardCloneDOM.style.top = `${event.clientY}px`;
       }
     },
     handleDrop() {
-      if (this.draggingStatus === "dragging") {
+      if (this.draggingStatus === "holding") {
+        this.draggingStatus = "";
+      } else if (this.draggingStatus === "dragging") {
         this.draggingStatus = "";
         this.configAppendCard(event.clientX, event.clientY);
       }
@@ -72,13 +92,16 @@ export default {
         }
       });
       if (listKeyFound) {
-        this.appendCard(listKeyFound);
+        this.lists[listKeyFound] = [
+          ...this.lists[listKeyFound],
+          this.cloneItem.value,
+        ];
       } else {
-        this.appendCard(this.cloneItem.listKey);
+        this.lists[this.cloneItem.listKey] = [
+          ...this.lists[this.cloneItem.listKey],
+          this.cloneItem.value,
+        ];
       }
-    },
-    appendCard(key) {
-      this.lists[key] = [...this.lists[key], this.cloneItem.value];
     },
   },
 };
@@ -96,7 +119,8 @@ export default {
         :type="item.type"
         :title="item.title"
         @add-card="(payload) => handleAddCard(item.list_key, payload)"
-        @hold="(payload) => handleHold(payload)"
+        @delete-card="(index) => removeItem(item.list_key, index)"
+        @hold="(index) => handleHold(item.list_key, index)"
         @mount-element="(element) => containerRefs.push(element)"
       />
     </div>

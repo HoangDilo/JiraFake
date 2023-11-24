@@ -25,15 +25,14 @@
 .input-card {
     height: auto;
     cursor: text;
+    background: #F5F5F5;
 }
 
 .text-area-card {
     display: block;
-    width: 100%;
     min-height: 20px;
     line-height: 20px;
     height: fit-content;
-    resize: none;
     border: none;
     outline: none;
     background: none;
@@ -60,9 +59,34 @@
     }
 }
 
+.card-container {
+    position: relative;
+}
+
 .cards {
     display: flex;
     flex-direction: column;
     gap: 12px;
     width: 100%;
+}
+
+.card-options {
+    gap: 12px;
+    position: absolute;
+    top: -6px;
+    right: 14px;
+    z-index: 1;
+    display: none;
+}
+
+.hovering {
+    display: flex;
+}
+
+.option {
+    display: flex;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+    }
 }
