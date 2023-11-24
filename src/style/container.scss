@@ -1,0 +1,68 @@
+.add-new {
+    background: rgb(0, 179, 255);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border-radius: 24px;
+    padding: 8px 14px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    border: none;
+    &:hover {
+        background: rgb(0, 165, 235);
+    }
+}
+
+.input-card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.input-card {
+    height: auto;
+    cursor: text;
+}
+
+.text-area-card {
+    display: block;
+    width: 100%;
+    min-height: 20px;
+    line-height: 20px;
+    height: fit-content;
+    resize: none;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+}
+
+.option-buttons {
+    display: flex;
+    gap: 8px;
+
+    button {
+        border: none;
+        padding: 8px;
+        background: rgb(0, 179, 255);
+        color: white;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+            background: rgb(0, 165, 235);
+        }
+    }
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
