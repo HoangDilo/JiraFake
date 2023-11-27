@@ -1,7 +1,7 @@
 <script >
-import CustomButton from "./CustomButton.vue";
-import IcEdit from "../assets/icons/IcEdit.vue";
-import IcTrashCan from "../assets/icons/IcTrashCan.vue";
+import CustomButton from "@/components/CustomButton.vue";
+import IcEdit from "@/assets/icons/IcEdit.vue";
+import IcTrashCan from "@/assets/icons/IcTrashCan.vue";
 
 export default {
   props: {
@@ -89,7 +89,7 @@ export default {
           v-for="(card, index) in list"
           :key="index"
           @mousedown="$emit('hold', index)"
-          @mouseover="hoveredCardIndex = index"
+          @mouseenter="hoveredCardIndex = index"
           @mouseleave="hoveredCardIndex = undefined"
         >
           <div class="card">
@@ -147,5 +147,5 @@ export default {
 
 
 <style lang="scss" scoped>
-@import "./../style/container.scss";
+@import "@/style/jiraFake.scss";
 </style>

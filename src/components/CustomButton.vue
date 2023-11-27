@@ -1,5 +1,5 @@
 <script>
-import IcPlus from "../assets/icons/IcPlus.vue";
+import IcPlus from "@/assets/icons/IcPlus.vue";
 export default {
   components: {
     IcPlus,

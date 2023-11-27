@@ -3,8 +3,6 @@ import { createPinia, PiniaVuePlugin } from 'pinia'
 
 import App from './App.vue'
 
-import './style/main.scss'
-
 Vue.use(PiniaVuePlugin)
 
 new Vue({
