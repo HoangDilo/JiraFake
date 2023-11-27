@@ -36,7 +36,7 @@ export default {
     handleDelete(index) {
       this.$emit("delete-card", index);
     },
-    handleChange(event) {
+    handleChange() {
       this.inputValue = event.target.innerText;
     },
     handleSubmit() {
@@ -55,7 +55,7 @@ export default {
       }
       this.isCreating = false;
     },
-    handleUsingOption(event) {
+    handleUsingOption() {
       event.preventDefault();
       event.stopPropagation();
     },
@@ -105,14 +105,14 @@ export default {
             <div
               class="option"
               @click="handleEdit(index)"
-              @mousedown="(event) => handleUsingOption(event)"
+              @mousedown="handleUsingOption"
             >
               <ic-edit />
             </div>
             <div
               class="option"
               @click="handleDelete(index)"
-              @mousedown="(event) => handleUsingOption(event)"
+              @mousedown="handleUsingOption"
             >
               <ic-trash-can class="option" />
             </div>
@@ -126,7 +126,7 @@ export default {
             ref="input-area"
             role="textarea"
             contenteditable
-            @input="(event) => handleChange(event)"
+            @input="handleChange"
             >{{ editingCardValue }}</span
           >
         </div>
@@ -137,10 +137,11 @@ export default {
       </div>
       <custom-button
         v-if="type === 'to-do' && !isCreating"
-        :content="'Create new card'"
         :eventName="'create-card'"
         @create-card="handleCreate"
-      />
+      >
+      <p>Create new card</p>
+      </custom-button>
     </div>
   </div>
 </template>

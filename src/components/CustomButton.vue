@@ -6,14 +6,13 @@ export default {
   },
   props: {
     eventName: String,
-    content: String,
   },
 };
 </script>
 
 <template>
   <button class="add-new" @click="$emit(eventName)">
-    <p>{{ content }}</p>
+    <slot></slot>
     <ic-plus />
   </button>
 </template>
